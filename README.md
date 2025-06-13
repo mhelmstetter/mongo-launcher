@@ -37,13 +37,13 @@ mongo-launcher/
 
 #### macOS/Linux
 ```bash
-curl -L -o install.sh https://raw.githubusercontent.com/mongodb/mongo-launcher/main/bin/install.sh
+curl -L -o install.sh https://raw.githubusercontent.com/mhelmstetter/mongo-launcher/main/bin/install.sh
 chmod +x install.sh && ./install.sh
 ```
 
 #### Windows (Run as Administrator)
 ```cmd
-curl -L -o install.bat https://raw.githubusercontent.com/mongodb/mongo-launcher/main/bin/install.bat
+curl -L -o install.bat https://raw.githubusercontent.com/mhelmstetter/mongo-launcher/main/bin/install.bat
 install.bat
 ```
 

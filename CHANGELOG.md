@@ -70,5 +70,5 @@ mongo-launcher/
 └── CHANGELOG.md          # This file
 ```
 
-[Unreleased]: https://github.com/mongodb/mongo-launcher/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/mongodb/mongo-launcher/releases/tag/v1.0.0
+[Unreleased]: https://github.com/mhelmstetter/mongo-launcher/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/mhelmstetter/mongo-launcher/releases/tag/v1.0.0
