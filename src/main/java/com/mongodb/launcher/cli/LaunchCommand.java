@@ -20,7 +20,7 @@ import java.util.concurrent.Callable;
 )
 public class LaunchCommand implements Callable<Integer> {
     
-    @Parameters(index = "0", description = "Cluster specification file (JSON)")
+    @Parameters(index = "0", description = "Cluster specification file (JSON)", arity = "0..1")
     private File specFile;
     
     @Option(names = {"-t", "--type"}, description = "Cluster type: atlas, local")
