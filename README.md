@@ -26,7 +26,6 @@ mongo-launcher/
 │   ├── install.sh                          # Unix/Linux/macOS installer
 │   ├── install.bat                         # Windows installer
 │   └── package.sh                          # Distribution packaging script
-├── homebrew/                               # Homebrew formula
 ├── dist/                                   # Distribution packages (generated)
 ├── INSTALL.md                              # Detailed installation guide
 └── pom.xml                                 # Maven configuration
@@ -50,7 +49,7 @@ install.bat
 
 #### Homebrew (macOS)
 ```bash
-brew tap mongodb/mongo-launcher
+brew tap mhelmstetter/mongo-launcher
 brew install mongo-launcher
 ```
 
@@ -330,7 +329,7 @@ Each package includes:
 ### Deployment Options
 
 1. **GitHub Releases**: Upload generated packages as release artifacts
-2. **Homebrew**: Use the provided formula in `homebrew/mongo-launcher.rb`
+2. **Homebrew**: Available via tap `mhelmstetter/mongo-launcher`
 3. **Direct Download**: Distribute packages via web hosting
 4. **Package Managers**: Adapt for apt, yum, chocolatey, etc.
 

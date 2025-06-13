@@ -14,7 +14,7 @@ MongoLauncher provides multiple installation options to suit different environme
 #### Mac/Linux
 ```bash
 # Clone the repository or download the install script
-curl -L -o install.sh https://raw.githubusercontent.com/mongodb/mongo-launcher/main/bin/install.sh
+curl -L -o install.sh https://raw.githubusercontent.com/mhelmstetter/mongo-launcher/main/bin/install.sh
 chmod +x install.sh
 ./install.sh
 ```
@@ -22,21 +22,19 @@ chmod +x install.sh
 #### Windows
 ```cmd
 REM Download and run as Administrator
-curl -L -o install.bat https://raw.githubusercontent.com/mongodb/mongo-launcher/main/bin/install.bat
+curl -L -o install.bat https://raw.githubusercontent.com/mhelmstetter/mongo-launcher/main/bin/install.bat
 install.bat
 ```
 
 ### 2. Homebrew Installation (macOS)
 
 ```bash
-# Add the tap (when published)
-brew tap mongodb/mongo-launcher
-
-# Install MongoLauncher
+# Add the tap and install
+brew tap mhelmstetter/mongo-launcher
 brew install mongo-launcher
 
-# Or install from local formula
-brew install --build-from-source homebrew/mongo-launcher.rb
+# Or install directly with full tap name
+brew install mhelmstetter/mongo-launcher/mongo-launcher
 ```
 
 ### 3. Manual Installation
