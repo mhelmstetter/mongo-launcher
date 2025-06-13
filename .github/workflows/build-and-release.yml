@@ -1,0 +1,146 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ main, develop ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    - name: Run tests
+      run: mvn clean test
+      
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: target/surefire-reports/
+
+  build:
+    name: Build and Package
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+        
+    - name: Build project
+      run: mvn clean package -DskipTests
+      
+    - name: Create distribution packages
+      run: ./bin/package.sh
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: mongo-launcher-packages
+        path: |
+          dist/*.tar.gz
+          dist/*.zip
+          dist/checksums.sha256
+        retention-days: 30
+
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    permissions:
+      contents: write
+      
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Download build artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: mongo-launcher-packages
+        path: dist/
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: MongoLauncher ${{ github.ref_name }}
+        body: |
+          ## MongoLauncher ${{ github.ref_name }}
+          
+          ### Installation
+          
+          #### Quick Install
+          ```bash
+          # macOS/Linux
+          curl -L -o install.sh https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/install.sh
+          chmod +x install.sh && ./install.sh
+          
+          # Windows (Run as Administrator)
+          curl -L -o install.bat https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/install.bat
+          install.bat
+          ```
+          
+          #### Manual Download
+          Download the appropriate package for your platform:
+          - `mongo-launcher-*-universal.*` - Cross-platform package
+          - `mongo-launcher-*-macos.tar.gz` - macOS optimized
+          - `mongo-launcher-*-linux.tar.gz` - Linux optimized  
+          - `mongo-launcher-*-windows.zip` - Windows optimized
+          
+          #### Homebrew (macOS)
+          ```bash
+          brew tap mongodb/mongo-launcher
+          brew install mongo-launcher
+          ```
+          
+          ### Verification
+          Verify downloads using SHA256 checksums in `checksums.sha256`.
+          
+          ### What's Changed
+          See [CHANGELOG.md](CHANGELOG.md) for detailed changes.
+          
+        files: |
+          dist/*.tar.gz
+          dist/*.zip
+          dist/checksums.sha256
+          bin/install.sh
+          bin/install.bat
+        draft: false
+        prerelease: false
+        generate_release_notes: true

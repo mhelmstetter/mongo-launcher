@@ -1,0 +1,10 @@
+{
+  "type": "local",
+  "name": "test-cluster-6-0",
+  "mongoVersion": "6.0.13",
+  "port": 27020,
+  "topology": "STANDALONE",
+  "enableAuth": false,
+  "dataPath": "/tmp/mongo-launcher/data-6",
+  "logPath": "/tmp/mongo-launcher/logs/mongod-6.log"
+}

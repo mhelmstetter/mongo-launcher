@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# MongoLauncher executable script
+
+# Find the directory containing this script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+JAR_FILE="$SCRIPT_DIR/mongo-launcher.jar"
+
+# Check if JAR file exists
+if [ ! -f "$JAR_FILE" ]; then
+    echo "Error: mongo-launcher.jar not found at $JAR_FILE"
+    echo "Please run 'mvn clean package' to build the project first."
+    exit 1
+fi
+
+# Check if Java is available
+if ! command -v java &> /dev/null; then
+    echo "Error: Java is not installed or not in PATH"
+    echo "Please install Java 17 or later."
+    exit 1
+fi
+
+# Execute the JAR file with all provided arguments
+exec java -jar "$JAR_FILE" "$@"

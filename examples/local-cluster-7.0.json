@@ -1,0 +1,11 @@
+{
+  "type": "local",
+  "name": "test-cluster-7-0",
+  "mongoVersion": "7.0",
+  "port": 27017,
+  "topology": "REPLICA_SET",
+  "replicaSetSize": 3,
+  "enableAuth": false,
+  "dataPath": "/tmp/mongo-launcher/data",
+  "logPath": "/tmp/mongo-launcher/logs/mongod.log"
+}
