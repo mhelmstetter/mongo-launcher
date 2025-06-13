@@ -7,7 +7,7 @@ import picocli.CommandLine.Command;
     name = "mongo-launcher",
     description = "MongoDB Cluster Management Tool",
     mixinStandardHelpOptions = true,
-    version = "1.0.3",
+    version = "1.0.4",
     subcommands = {
         LaunchCommand.class,
         StatusCommand.class,

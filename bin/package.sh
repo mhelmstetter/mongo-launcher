@@ -8,7 +8,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 DIST_DIR="$PROJECT_DIR/dist"
-VERSION="1.0.3"
+VERSION="1.0.4"
 PROJECT_NAME="mongo-launcher"
 
 # Colors
